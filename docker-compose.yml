@@ -12,7 +12,7 @@ services:
       - ./data/database:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_ROOT_HOST='%'
+      - MYSQL_ROOT_HOST=%
       - MYSQL_DATABASE=oficina-legal-config
     command: mysqld --innodb-buffer-pool-size=256M
 
