@@ -13,7 +13,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_ROOT_HOST=%
-      - MYSQL_DATABASE=oficina-legal-config
+      - MYSQL_DATABASE=oficina-legal-dev
     command: mysqld --innodb-buffer-pool-size=256M
 
   phpMyAdmin:
@@ -26,3 +26,25 @@ services:
     environment:
       - PMA_ARBITRARY=1
       - PMA_PORT=6001
+
+  node-api:
+    image: node:10
+    container_name: 'oficina-legal-api'
+    volumes:
+      - ./oficina-legal-api:/app
+    ports:
+      - 4000:4000
+    environment:
+      - PORT=4000
+      - NODE_ENV=develop
+      - DB_DATABASE=oficina-legal-dev
+      - DB_USERNAME=
+      - DB_PASSWORD=
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DIALECT=mysql
+      - cloudApiKey=
+      - SECRET=
+    links:
+      - db
+    command: bash -c "cd /app; npm ci; npm run start"
