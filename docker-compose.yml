@@ -48,3 +48,12 @@ services:
     links:
       - db
     command: bash -c "cd /app; npm ci; npm run start"
+  
+  angular-app:
+    image: node:10
+    container_name: 'oficina-legal-web'
+    volumes:
+      - ./oficina-legal-web-app:/app
+    ports:
+      - 5000:5000
+    command: bash -c "cd /app; npm ci; npm run build; npm run start:prod"
